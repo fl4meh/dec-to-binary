@@ -48,6 +48,20 @@ void dec_to_binary(int decimal){
 
 }
 
+void dec_to_octal(int decimal){
+    int result;
+    Stack stack;
+
+    while (decimal > 0){
+        result = decimal % 8;
+        stack.push(result);
+        decimal /= 8;
+    }
+    while (!stack.is_empty()){
+        std::cout << stack.pop_value();
+    }
+}
+
 
 
 int main(){
@@ -63,7 +77,7 @@ int main(){
         int c;
         std::cout << "1. Decimal to Binary" << std::endl << "2. Addition" << std::endl;
         std::cout << "3. Subtraction" << std:: endl << "4. Multiplication" << std::endl;
-        std::cout << "5. Division";
+        std::cout << "5. Division" << std::endl << "6. Octal Convert" << std::endl;
         std::cout << std::endl;
         std::cout << "Choice: ";
         std::cin >> c;
@@ -125,6 +139,16 @@ int main(){
             std::cout << "Second: "; dec_to_binary(num2); std::cout << std::endl;
             std::cout << "Result: "; dec_to_binary(result); std::cout <<  std::endl;
             std::cout << "---------------------------------------------------------------------------------" << std::endl;
+            break;
+            }
+            case 6: {
+            int dec;
+            std::cout << "Input format: A" << std::endl;
+            std::cout << "Decimal: ";
+            std::cin >> dec;
+            std::cout << "Result: "; dec_to_octal(dec);
+            std::cout << std::endl;
+            std::cout << "---------------------------------------------------------------------------------" << std::endl;            
             break;
             }
         }
