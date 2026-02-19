@@ -1,6 +1,9 @@
 #include <iostream>
 #include <vector>
+#include <string>
 #include <windows.h>
+
+int power(int x);
 
 void clearScreen() {
     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -13,6 +16,13 @@ void clearScreen() {
     FillConsoleOutputCharacter(hConsole, ' ', consoleSize, topLeft, &written);
     FillConsoleOutputAttribute(hConsole, csbi.wAttributes, consoleSize, topLeft, &written);
     SetConsoleCursorPosition(hConsole, topLeft);
+}
+
+int power(int base, int exponent){
+    if (exponent == 0){
+        return 1;
+    }
+    return base * power(base, exponent - 1);
 }
 
 class Stack{
@@ -62,6 +72,23 @@ void dec_to_octal(int decimal){
     }
 }
 
+void binary_to_dec(std::string val){
+    int exponent = 0;
+    int result = 0;
+    for (int i = val.size()-1; i >= 0; i--){
+        if (val[i] == '1'){
+            result += power(2, exponent);
+        }
+        else if (val[i] == '0'){
+            continue;
+        }
+        exponent++;
+    }
+
+
+    std::cout << result;
+}
+
 
 
 int main(){
@@ -78,6 +105,7 @@ int main(){
         std::cout << "1. Decimal to Binary" << std::endl << "2. Addition" << std::endl;
         std::cout << "3. Subtraction" << std:: endl << "4. Multiplication" << std::endl;
         std::cout << "5. Division" << std::endl << "6. Octal Convert" << std::endl;
+        std::cout << "7. Binary to Decimal";
         std::cout << std::endl;
         std::cout << "Choice: ";
         std::cin >> c;
@@ -147,6 +175,17 @@ int main(){
             std::cout << "Decimal: ";
             std::cin >> dec;
             std::cout << "Result: "; dec_to_octal(dec);
+            std::cout << std::endl;
+            std::cout << "---------------------------------------------------------------------------------" << std::endl;            
+            break;
+            }
+            case 7:{
+            std::string val;
+            std::cout << "Input format: B1B2B3....Bn where B is a binary digit" << std::endl;
+            std::cout << "Binary: ";
+            std::cin.ignore();
+            std::getline(std::cin, val);
+            std::cout << "Result: "; binary_to_dec(val);
             std::cout << std::endl;
             std::cout << "---------------------------------------------------------------------------------" << std::endl;            
             break;
